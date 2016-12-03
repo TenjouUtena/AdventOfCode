@@ -2,10 +2,11 @@
 
 f = open('triangles','rb')
 
+fake = f.readlines()
 ## PART 1:
-"""
+
 tel = []
-for line in f.readlines():
+for line in fake:
     ll = line.split(' ')
     tr = []
     for mem in ll:
@@ -17,7 +18,6 @@ for line in f.readlines():
         tel.append(gg)
 
 print len(tel)
-"""
 
 
 ## PART 2
@@ -27,7 +27,7 @@ t1=[]
 t2=[]
 t3=[]
 cycle = 1
-for line in f.readlines():
+for line in fake:
     ll = line.split(' ')
     tr = []
     for mem in ll:
