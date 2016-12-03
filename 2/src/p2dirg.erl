@@ -12,6 +12,7 @@
 %% API
 -export([load_graph/1, print_graph/1, find_exit/3, run_path/3, do_stuff/1]).
 
+%%Test
 
 load_dict_line(L, Dict, Col) ->
   load_dict_line(L, Dict, Col, 0).
