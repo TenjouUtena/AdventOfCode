@@ -36,9 +36,8 @@ evaluate_codes(Head) ->
   case re:run(Head, "([a-z\\-]+)([0-9]+)\\[([a-z]{5})\\]", [{capture,[1,2,3],list}]) of
     {match, Data} ->
       %%io:format("~s ~s ~s ~s ~n",Data ++ [code(lists:nth(1,Data))]),
-      CodeName = lists:nth(1,Data),
-      Key =  element(1,string:to_integer(lists:nth(2,Data))),
-      Check = lists:nth(3,Data),
+      [CodeName, _, Check] = Data,
+      {Key, _} =  string:to_integer(lists:nth(2,Data)),
       case Check == code(CodeName) of
         true ->
           Decoded = lists:map(fun (X) -> decode(X,Key) end, CodeName),
