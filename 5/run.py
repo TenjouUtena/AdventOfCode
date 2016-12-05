@@ -1,9 +1,11 @@
 
-import hashlib
+import hashlib,time
+
+start = time.time()
 
 inp = 'uqwqemis'
 
-salt = 4400000
+salt = 0
 
 found = False
 
@@ -30,3 +32,6 @@ while not found:
   salt += 1
 
 print pw
+
+end = time.time()
+print(end - start)
