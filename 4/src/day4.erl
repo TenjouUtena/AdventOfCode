@@ -28,7 +28,7 @@ code(Code) ->
 decode($-, _) ->
   32;
 decode(Char, Key) when (Char >= $a) and (Char =< $z) ->
-  (((Char - ($a - 1))+Key) rem 26) + ($a - 1);
+  (((Char - $a)+Key) rem 26) + ($a);
 decode(Char, _) ->
   Char.
 
