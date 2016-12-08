@@ -29,6 +29,5 @@ for line in f.readlines():
     m2 = re.search(r"\[\w*((?P<ch1>\w)(?!(?P=ch1))(?P<ch2>\w)(?P=ch1))\w*\](\w*\[\w*\]\w*)*\w*(?P=ch2)(?P=ch1)(?P=ch2)",line)
     if m2:
         ips += 1
-        continue
 
 print "Part 2", ips
