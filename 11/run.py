@@ -107,11 +107,15 @@ class State(object):
         ## If we can move down
         if self.elevator-1 >= 0 and len(self.floors[self.elevator-1]) > 0:
             ## We only ever want to move one object down.
-            for obj in self.floors[self.elevator]:
+            vmo = []
+            for x in xrange(min(len(self.floors[self.elevator]),2)):
+                vmo += itertools.combinations(self.floors[self.elevator],x+1)
+            for mov in vmo:
                 st = State()
                 st.copystate(self)
-                st.elevator = self.elevator-1
-                st.move(obj, st.elevator)
+                st.elevator = self.elevator -1
+                for o in mov:
+                    st.move(o, st.elevator)
                 vstates.append(st)
 
         if self.elevator+1 <= 3:
@@ -224,6 +228,32 @@ def maintest():
     print find_depth_fast(s)
 
 
+def main3():
+    """
+    The first floor contains a promethium generator and a promethium-compatible microchip.
+The second floor contains a cobalt generator, a curium generator, a ruthenium generator, and a plutonium generator.
+The third floor contains a cobalt-compatible microchip, a curium-compatible microchip, a ruthenium-compatible microchip, and a plutonium-compatible microchip.
+The fourth floor contains nothing relevant.
+    """
+    s = State()
+    s.floors[0].append(Gen('Pro'))
+    s.floors[0].append(Chip('Pro'))
+    s.floors[1].append(Gen('Col'))
+    s.floors[1].append(Gen('Cur'))
+    s.floors[1].append(Gen('Rut'))
+    s.floors[1].append(Gen('Plu'))
+    s.floors[2].append(Chip('Col'))
+    s.floors[2].append(Chip('Cur'))
+    s.floors[2].append(Chip('Rut'))
+    s.floors[2].append(Chip('Plu'))
+    s.floors[0].append(Gen('1Col'))
+    s.floors[0].append(Chip('1Col'))
+    s.floors[0].append(Gen('2Col'))
+    s.floors[0].append(Chip('2Col'))
+    start = time.time()
+    print find_depth_fast(s)
+    print time.time() - start    
+
 def main2():
     """
 The first floor contains a thulium generator, a thulium-compatible microchip, a plutonium generator, and a strontium generator.
@@ -273,4 +303,4 @@ def main():
 
 if __name__ == '__main__':
     tester()
-    main()
+    main3()
