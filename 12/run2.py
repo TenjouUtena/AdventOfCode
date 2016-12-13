@@ -33,7 +33,7 @@ def nop(*_):
     pass
 
 def comp():
-    inst = {'cpy':cpy, 'inc':inc, 'dec':dec, 'jnz':jnz, 'adt':adt, 'nop':nop}
+    inst = {'cpy':cpy, 'inc':inc, 'dec':dec, 'jnz':jnz, 'adt':adt, 'nop':nop, 'asn':asn, 'rcp':rcp}
 
     f = open('codes','rb')
     #test = re.compile(r"([a-z]{3}) ([a-z0-9]+) ?([\-a-z0-9]+)?")
@@ -53,11 +53,11 @@ def optimize_adt():
     for xx in xrange(len(instructions)):
         i,a,b = instructions[xx]
         if i == jnz and b == -2 :
-            i1,o2,o22 = instructions[xx-1]
-            i2,o3,o33 = instructions[xx-2]
+            i1,o2,_ = instructions[xx-1]
+            i2,o3,_ = instructions[xx-2]
             if o2 == a and i1 == dec and i2 == inc:
                 instructions[xx-2] = (adt, o3, a)
-                instructions[xx-1] = (cpy, 0, a)
+                instructions[xx-1] = (asn, 0, a)
                 instructions[xx] = (nop, None, None)
 
 def optimize_cpy():
