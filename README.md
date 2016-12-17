@@ -14,3 +14,22 @@ Day 5: [Python](5/run.py) [Python - Multiprocessor](5/run2.py)
 
 Day 6: [Python](6/run.py)
 
+Day 7: [Python](7/run.py)
+
+Day 8: [Python](8/run.py)
+
+Day 9: [Python - Part 1](9/run.py) [Python - Part 2](9/run2.py)
+
+Day 10: [Python](10/run.py)
+
+Day 11: [Python](11/run.py)
+
+Day 12: [Python](12/run.py) [Python - Optimized](12/run2.py)
+
+Day 13: [Python](13/run.py)
+
+Day 14: [Python](14/run.py)
+
+Day 15: [Clojure](Clojure/day15.clj)
+
+Day 16: [Clojure](Clojure/say16.clj)
