@@ -32,4 +32,6 @@ Day 14: [Python](14/run.py)
 
 Day 15: [Clojure](Clojure/day15.clj)
 
-Day 16: [Clojure](Clojure/say16.clj)
+Day 16: [Clojure](Clojure/day16.clj)
+
+Day 17: [Clojure](Clojure/day17.clj)
