@@ -35,3 +35,5 @@ Day 15: [Clojure](Clojure/day15.clj)
 Day 16: [Clojure](Clojure/day16.clj)
 
 Day 17: [Clojure](Clojure/day17.clj)
+
+Day 18: [Clojure](Clojure/day18.clj)

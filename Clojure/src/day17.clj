@@ -43,9 +43,7 @@
 (defn solved? [path]
   (let [dest (moveto path)
         [x y] dest]
-    (if (and (= x 3) (= y 3))
-      1
-      nil)))
+    (and (= x 3) (= y 3))))
 
 (defn queue [& vals]
   (apply merge (clojure.lang.PersistentQueue/EMPTY) vals))
