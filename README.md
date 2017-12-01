@@ -30,14 +30,14 @@ Day 13: [Python](2016/13/run.py)
 
 Day 14: [Python](2016/14/run.py)
 
-Day 15: [Clojure](2016/Clojure/day15.clj)
+Day 15: [Clojure](2016/Clojure/src/day15.clj)
 
-Day 16: [Clojure](2016/Clojure/day16.clj)
+Day 16: [Clojure](2016/Clojure/src/day16.clj)
 
-Day 17: [Clojure](2016/Clojure/day17.clj)
+Day 17: [Clojure](2016/Clojure/src/day17.clj)
 
-Day 18: [Clojure](2016/Clojure/day18.clj)
+Day 18: [Clojure](2016/Clojure/src/day18.clj)
 
-Day 19: [Clojure - Part 1 only](2016/Clojure/day19.clj)
+Day 19: [Clojure - Part 1 only](2016/Clojure/src/day19.clj)
 
-Day 20: [Clojure](2016/Clojure/day20.clj)
+Day 20: [Clojure](2016/Clojure/src/day20.clj)
