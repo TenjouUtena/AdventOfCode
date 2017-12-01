@@ -1,7 +1,9 @@
 # AdventOfCode2016
 
-Solutions mostly in python, with some erlang and some clojure in there.
+## 2016
 
+<details>
+	<summary>Solutions mostly in python, with some erlang and some clojure in there.</summary>
 Day 1: [Python](2016/1/map.py)
 
 Day 2: [Python](2016/2/code.py) [Erlang](2016/2/src/part2.erl) [Erlang - Fancy](2016/2/src/p2dirg.erl)
@@ -41,3 +43,8 @@ Day 18: [Clojure](2016/Clojure/src/day18.clj)
 Day 19: [Clojure - Part 1 only](2016/Clojure/src/day19.clj)
 
 Day 20: [Clojure](2016/Clojure/src/day20.clj)
+</details>
+
+## 2017
+
+Day 1: [Python](2017/1/run.py)
