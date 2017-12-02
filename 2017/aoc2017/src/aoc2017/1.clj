@@ -24,7 +24,7 @@
 "(reduce )"
 
 
-(reduce +  (map #(Character/digit % 10) (filter (comp not nil?) (map #(apply trufirst %) (makepairs thes)))))
+(reduce +  (map #(Character/digit % 10) (map first (filter #(apply = %) (map vector thes (rot thes (/ (count thes) 2)))))))
 
 
 
