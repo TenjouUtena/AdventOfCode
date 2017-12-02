@@ -49,4 +49,5 @@ Day 20: [Clojure](2016/Clojure/src/day20.clj)
 
 Day 1: [Python](2017/1/run.py) [Clojure](2017/aoc2017/src/aoc2017/1.clj)
 
-Day 2: [Python](2017/2/run.py)
+Day 2: [Clojure](2017/aoc2017/src/aoc2017/2.clj)
+
