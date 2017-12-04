@@ -51,3 +51,5 @@ Day 1: [Python](2017/1/run.py) [Clojure](2017/aoc2017/src/aoc2017/1.clj)
 
 Day 2: [Clojure](2017/aoc2017/src/aoc2017/2.clj)
 
+Day 4: [Clojure](2017/aoc2017/src/aoc2017/4.clj)
+
