@@ -23,8 +23,9 @@
       (if
           (or (< ip 0) (> ip (dec (count inst)))) 
           c
-          (recur (+ ip (inst ip)) 
-                 (assoc! inst ip (if (> (inst ip) 2) 
-                                          (dec (inst ip)) 
-                                          (inc (inst ip)))) 
-                 (inc c)))))
+          (let [ins (inst ip)]
+            (recur (+ ip ins) 
+                   (assoc! inst ip (if (> ins 2) 
+                                     (dec ins) 
+                                     (inc ins))) 
+                   (inc c))))))
