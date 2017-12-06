@@ -55,3 +55,5 @@ Day 4: [Clojure](2017/aoc2017/src/aoc2017/4.clj)
 
 Day 5: [Clojure](2017/aoc2017/src/aoc2017/5.clj)
 
+Day 6: [Clojure](2017/aoc2017/src/aoc2017/6.clj)
+
