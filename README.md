@@ -57,3 +57,14 @@ Day 5: [Clojure](2017/aoc2017/src/aoc2017/5.clj)
 
 Day 6: [Clojure](2017/aoc2017/src/aoc2017/6.clj)
 
+Day 7: [Clojure](2017/aoc2017/src/aoc2017/7.clj)
+
+Day 8: [Clojure](2017/aoc2017/src/aoc2017/8.clj)
+
+Day 9: [Clojure](2017/aoc2017/src/aoc2017/9.clj)
+
+Day 10: [Clojure](2017/aoc2017/src/aoc2017/10.clj)
+
+Day 11: [Clojure](2017/aoc2017/src/aoc2017/11.clj)
+
+
