@@ -48,6 +48,8 @@ Day 20: [Clojure](2016/Clojure/src/day20.clj)
 ## 2017
 
 <details>
+  <summary>Mostly Clojure</summary>
+
 Day 1: [Python](2017/1/run.py) [Clojure](2017/aoc2017/src/aoc2017/1.clj)
 
 Day 2: [Clojure](2017/aoc2017/src/aoc2017/2.clj)
@@ -67,6 +69,7 @@ Day 9: [Clojure](2017/aoc2017/src/aoc2017/9.clj)
 Day 10: [Clojure](2017/aoc2017/src/aoc2017/10.clj)
 
 Day 11: [Clojure](2017/aoc2017/src/aoc2017/11.clj)
+
 </details>
 
 ## 2018
