@@ -74,8 +74,18 @@ Day 11: [Clojure](2017/aoc2017/src/aoc2017/11.clj)
 
 ## 2018
 
+<details>
+
 Day 1: [Clojure](2018/aoc2018/src/aoc2018/1.clj)
 
 Day 2: [Clojure](2018/aoc2018/src/aoc2018/2.clj)
 
 Day 3: [Clojure](2018/aoc2018/src/aoc2018/3.clj)
+
+</details>
+
+## 2019
+
+Day 1: [Clojure](2019/aoc2019/src/aoc2019/1.clj)
+
+Day 2: [Clojure](2019/aoc2019/src/aoc2019/2.clj)

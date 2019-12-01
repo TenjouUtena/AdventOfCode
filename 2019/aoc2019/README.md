@@ -1,10 +1,6 @@
 # aoc2019
 
-A Clojure library designed to ... well, that part is up to you.
-
-## Usage
-
-FIXME
+The 2019 version of my AOC Junk
 
 ## License
 

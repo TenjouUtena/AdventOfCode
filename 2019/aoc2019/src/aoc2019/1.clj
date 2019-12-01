@@ -1,8 +1,6 @@
 (ns aoc2019.1
-  (:require [clojure.string :as str]))
-
-
-(defn loadff [] (map #(Integer/parseInt %) (str/split-lines (slurp "resources/1.txt"))))
+  (:require [clojure.string :as str]
+            [aoc2019.core :refer :all]))
 
 
 (defn fuelcost [weight]
@@ -15,9 +13,13 @@
       we
       (recur (+ we f) (fuelcost f)))))
 
+(def fff "resources/1.txt")
+
+(def input (read-file-as-ints fff))
+
 (defn main1 []
-  (reduce + (map fuelcost (loadff))))
+  (reduce + (map fuelcost input)))
 
 
 (defn main2 []
-  (reduce + (map fullfuelcost (loadff))))
+  (reduce + (map fullfuelcost input)))
