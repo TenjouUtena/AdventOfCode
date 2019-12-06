@@ -7,4 +7,7 @@
 
 
 (defn main1 []
-  (run-machine in))
+  (:outputstream (run-machine-with-input in [1])))
+
+(defn main2 []
+  (:outputstream (run-machine-with-input in [5])))

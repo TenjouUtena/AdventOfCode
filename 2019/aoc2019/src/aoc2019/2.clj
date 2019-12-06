@@ -7,12 +7,12 @@
 
 
 (defn main1 []
-  (run-machine (create-machine-spec input-raw) 12 2 :trace true))
+  (get-in (run-machine (create-machine-spec input-raw) 12 2) [:memory 0]))
 
 (defn main2 []
   (for [x (range 99)
         y (range 99)
         :let [m (create-machine-spec input-raw)
-              a (run-machine m x y)]
+              a (get-in (run-machine m x y) [:memory 0])]
         :when (= a 19690720)]
     [x y]))
