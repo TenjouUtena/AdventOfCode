@@ -76,6 +76,26 @@
 
 (def trace true)
 
+
+(defn run-one-step [machine-state]
+  (let [{:keys [ip memory]} machine-state
+        [op params] (decode-op (memory ip) memory ip)
+        [newmem newip] ((op-lookup op) memory ip params)]
+    (-> machine-state
+        (assoc :ip newip)
+        (assoc :memory newmem)
+        (assoc :halt (= op "99"))
+        )
+    ))
+
+
+(defn create-state-from-mem [mem]
+  {:ip 0
+   :histmem []
+   :memory mem
+   :halt false})
+
+
 (defn run-machine
   ([machine-spec noun verb]
   (run-machine (assoc (assoc machine-spec 1 noun) 2 verb)))
