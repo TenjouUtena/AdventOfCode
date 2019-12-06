@@ -19,9 +19,7 @@
    })
 
 (defn get-or-create-planet [system planet]
-  (if (some #(= planet %) (keys system))
-    (get system planet)
-    (new-planet planet)))
+    (get system planet (new-planet planet)))
 
 
 (defn create-system-from-orbits [orbits]
@@ -64,7 +62,7 @@
       (conj path (:name p))
       (recur (get system (:parent p)) (conj path (:name p))))))
 
-
+(def answer1 (reduce + (map (fn [x] (:level (val x))) (count-levels input))))
 
 (def answer2
-  (count (filter #(= (val %) 1) (frequencies (into (hierarchy "YOU" system) (hierarchy "SAN" system))))))
+  (- (count (filter #(= (val %) 1) (frequencies (into (hierarchy "YOU" system) (hierarchy "SAN" system))))) 2))
