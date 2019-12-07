@@ -1,6 +1,6 @@
 (ns aoc2019.machine
   (:require [clojure.string :as str]
-            [clojure.core.async :as a]))
+            ))
 
 (defn op_PLUS [ms params]
   (let [{:keys [ip memory]} ms]
@@ -15,11 +15,13 @@
         (assoc :ip (+ ip 4)))))
 
 (defn op_INPUT [ms params]
-  (let [{:keys [ip memory]} ms]
-    (-> ms
-        (assoc-in [:memory (memory (+ ip 1))] (first (:inputstream ms)))
-        (assoc :inputstream (rest (:inputstream ms)))
-        (assoc :ip (+ ip 2)))))
+  (if (empty? (:inputstream ms))
+    (assoc ms :inputwait true)
+    (let [{:keys [ip memory]} ms]
+      (-> ms
+          (assoc-in [:memory (memory (+ ip 1))] (first (:inputstream ms)))
+          (assoc :inputstream (rest (:inputstream ms)))
+          (assoc :ip (+ ip 2))))))
 
 (defn op_OUTPUT [ms params]
   (-> ms
@@ -59,28 +61,8 @@
 (defn op_HALT [ms params]
   (assoc ms :halt true))
 
-(defn op_INPUT_CHAN [ms params]
-  (println "Waiting on input" ms)
-  (let [{:keys [ip memory]} ms]
-    (-> ms
-        (assoc-in [:memory (memory (+ ip 1))] (a/<! (:inputstream ms)))
-        (assoc :ip (+ ip 2)))))
 
-(defn op_OUTPUT_CHAN [ms params]
-  (println "Waiting on output" ms)
-  (a/>! (:outputstream ms) (nth params 0))
-  (assoc ms :pa (+ (:ip ms) 2)))
-
-(defn op_HALT_CHAN [ms params]
-  (assoc ms :halt true))
-
-
-
-
-
-
-
-(defn op-lookup-normal [opcode]
+(defn op-lookup [opcode]
   (case opcode
     "01" op_PLUS
     "02" op_MUL
@@ -93,23 +75,6 @@
     "99" op_HALT
 
     op_NOOP))
-
-(defn op-lookup-channel [opcode]
-  (case opcode
-    "01" op_PLUS
-    "02" op_MUL
-    "03" op_INPUT_CHAN
-    "04" op_OUTPUT_CHAN ;Ouput
-    "05" op_JNZ
-    "06" op_JEZ
-    "07" op_LT
-    "08" op_EQ
-    "99" op_HALT_CHAN
-
-    op_NOOP))
-
-
-(def op-lookup op-lookup-channel)
 
 (def op-len {"01" 3
              "02" 3
@@ -146,11 +111,12 @@
    :memory mem
    :halt false
    :inputstream []
-   :outputstream []})
+   :outputstream []
+   :inputwait false})
 
 (defn run-machine-base [state]
   (loop [ms state]
-    (if (:halt ms)
+    (if (or (:halt ms) (:inputwait ms))
       ms
       (recur (run-one-step ms)))))
 
@@ -162,16 +128,6 @@
 
 (defn run-machine-with-input [memory input]
   (run-machine-base (assoc (create-state-from-mem memory) :inputstream input)))
-
-
-(defn run-machine-with-chan [memory inchan outchan]
-  (let [
-        mac (-> (create-state-from-mem memory)
-                (assoc :inputstream inchan)
-                (assoc :outputstream outchan))]
-    (println "Creating machine")
-    (run-machine-base mac)
-    ))
 
 
 (defn create-machine-spec [s]

@@ -86,6 +86,21 @@ Day 3: [Clojure](2018/aoc2018/src/aoc2018/3.clj)
 
 ## 2019
 
+Core Functions: [Clojure](2019/aoc2019/src/aoc2019/core.clj)
+IntCode Interpreter: [Clojure](2019/aoc2019/src/aoc2019/machine.clj)
+
 Day 1: [Clojure](2019/aoc2019/src/aoc2019/1.clj)
 
 Day 2: [Clojure](2019/aoc2019/src/aoc2019/2.clj)
+
+Day 3: [Clojure](2019/aoc2019/src/aoc2019/3.clj)
+
+Day 4: [Clojure](2019/aoc2019/src/aoc2019/4.clj)
+
+Day 5: [Clojure](2019/aoc2019/src/aoc2019/5.clj)
+
+Day 6: [Clojure](2019/aoc2019/src/aoc2019/6.clj)
+
+Day 7: [Clojure](2019/aoc2019/src/aoc2019/7.clj)
+
+Day 8: [Clojure](2019/aoc2019/src/aoc2019/8.clj)
