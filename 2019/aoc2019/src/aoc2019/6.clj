@@ -45,22 +45,12 @@
 
 (defn count-levels [input]
   (let [s (create-system-from-orbits input)]
-    (loop [p (first (keys s))
-           r (rest (keys s))
-           sy s]
-      (let [ns (assoc sy p (count-level (get sy p) sy))]
-        (if (empty? r)
-          ns
-          (recur (first r) (rest r) ns))))))
+    (zipmap (keys s) (map #(count-level (val %) s) s))))
 
 (def system (count-levels input))
 
 (defn hierarchy [planet system]
-  (loop [p (get system planet)
-         path []]
-    (if (nil? (:parent p))
-      (conj path (:name p))
-      (recur (get system (:parent p)) (conj path (:name p))))))
+  (map (fn [x] (:name x)) (take-while some? (iterate #(get system (:parent %)) (get system planet)))))
 
 (def answer1 (reduce + (map (fn [x] (:level (val x))) (count-levels input))))
 
