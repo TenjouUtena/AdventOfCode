@@ -60,20 +60,18 @@
   (assoc ms :halt true))
 
 (defn op_INPUT_CHAN [ms params]
-  (println "Waiting on input" ms)
   (let [{:keys [ip memory]} ms]
     (-> ms
-        (assoc-in [:memory (memory (+ ip 1))] (a/<! (:inputstream ms)))
+        (assoc-in [:memory (memory (+ ip 1))] (a/<!! (:inputstream ms)))
         (assoc :ip (+ ip 2)))))
 
 (defn op_OUTPUT_CHAN [ms params]
-  (println "Waiting on output" ms)
-  (a/>! (:outputstream ms) (nth params 0))
-  (assoc ms :pa (+ (:ip ms) 2)))
+  (a/>!! (:outputstream ms) (nth params 0))
+  (assoc ms :ip (+ (:ip ms) 2)))
 
 (defn op_HALT_CHAN [ms params]
+  (a/close! (:outputstream ms))
   (assoc ms :halt true))
-
 
 
 
@@ -169,7 +167,6 @@
         mac (-> (create-state-from-mem memory)
                 (assoc :inputstream inchan)
                 (assoc :outputstream outchan))]
-    (println "Creating machine")
     (run-machine-base mac)
     ))
 

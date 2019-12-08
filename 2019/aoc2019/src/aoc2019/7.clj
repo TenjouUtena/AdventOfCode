@@ -4,9 +4,9 @@
             [clojure.math.combinatorics :as combo]
             [clojure.core.async :as a]))
 
-(def input "3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0")
+(def input-t "3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0")
 
-(def input-t "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5")
+(def input "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5")
 
 (def input-r (s/trim (slurp "resources/7.txt")))
 
@@ -47,8 +47,8 @@
 
 (defn create-machine-w-channels []
   (let [inp  (a/chan 2)
-        outp (a/chan 2)]
-    [inp outp (a/go (run-machine-with-chan machine inp outp))]))
+        outp (a/chan 3)]
+    [inp outp (a/thread (run-machine-with-chan machine inp outp))]))
 
 
 (defn run-main-2c [inputs]
@@ -59,7 +59,6 @@
         [i3 o3 g3] (create-machine-w-channels)
         [i4 o4 g4] (create-machine-w-channels)
         ]
-    (println "setup")
     (a/>!! i0 (nth inputs 0))
     (a/>!! i1 (nth inputs 1))
     (a/>!! i2 (nth inputs 2))
@@ -69,9 +68,9 @@
     (a/pipe o1 i2)
     (a/pipe o2 i3)
     (a/pipe o3 i4)
+    (a/pipe o4 i0)
     (a/>!! i0 0)
-    (println "map")
-    (a/<!! (a/map vector [g0 g1 g2 g3 g4]))
+    (a/<!! g3)
     (a/<!! o4)
     ))
 
@@ -97,5 +96,6 @@
     (a/<!! m4)))
 
 
-(defn run-main-2b [inputs]
-  )
+
+(defn answer2 [x]
+  (first (sort #(> (nth %1 1) (nth %2 1)) (map #(identity [% (run-main-2c %)]) (combo/permutations x)))))
