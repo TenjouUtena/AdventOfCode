@@ -68,7 +68,7 @@
     (a/pipe o1 i2)
     (a/pipe o2 i3)
     (a/pipe o3 i4)
-    (a/pipe o4 i0)
+;    (a/pipe o4 i0)
     (a/>!! i0 0)
     (a/<!! g3)
     (a/<!! o4)
