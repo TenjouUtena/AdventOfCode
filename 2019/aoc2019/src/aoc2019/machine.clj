@@ -1,17 +1,16 @@
 (ns aoc2019.machine
-  (:require [clojure.string :as str]
-            ))
+  (:require [clojure.string :as str]))
 
 (defn op_PLUS [ms params]
   (let [{:keys [ip memory]} ms]
     (-> ms
-        (assoc-in [:memory (memory (+ ip 3))] (+ (nth params 0) (nth params 1)))
+        (assoc-in [:memory (nth params 5)] (+ (nth params 0) (nth params 1)))
         (assoc :ip (+ ip 4)))))
 
 (defn op_MUL [ms params]
   (let [{:keys [ip memory]} ms]
     (-> ms
-        (assoc-in [:memory (memory (+ ip 3))] (* (nth params 0) (nth params 1)))
+        (assoc-in [:memory (nth params 5)] (* (nth params 0) (nth params 1)))
         (assoc :ip (+ ip 4)))))
 
 (defn op_INPUT [ms params]
@@ -19,7 +18,7 @@
     (assoc ms :inputwait true)
     (let [{:keys [ip memory]} ms]
       (-> ms
-          (assoc-in [:memory (memory (+ ip 1))] (first (:inputstream ms)))
+          (assoc-in [:memory (nth params 1)] (first (:inputstream ms)))
           (assoc :inputstream (rest (:inputstream ms)))
           (assoc :ip (+ ip 2))))))
 
@@ -48,19 +47,23 @@
   (let [{:keys [ip memory]} ms
         out (if (= (nth params 0) (nth params 1)) 1 0)]
     (-> ms
-        (assoc-in [:memory (memory (+ ip 3))] out)
+        (assoc-in [:memory (nth params 5)] out)
         (assoc :ip (+ ip 4)))))
 
 (defn op_LT [ms params]
   (let [{:keys [ip memory]} ms
         out (if (< (nth params 0) (nth params 1)) 1 0)]
     (-> ms
-        (assoc-in [:memory (memory (+ ip 3))] out)
+        (assoc-in [:memory (nth params 5)] out)
         (assoc :ip (+ ip 4)))))
 
 (defn op_HALT [ms params]
   (assoc ms :halt true))
 
+(defn op_REL_CHG [ms params]
+  (-> ms
+      (update :rel + (first params))
+      (update :ip + 2)))
 
 (defn op-lookup [opcode]
   (case opcode
@@ -72,6 +75,7 @@
     "06" op_JEZ
     "07" op_LT
     "08" op_EQ
+    "09" op_REL_CHG
     "99" op_HALT
 
     op_NOOP))
@@ -84,32 +88,43 @@
              "06" 2
              "07" 3
              "08" 3
+             "09" 1
              "99" 0})
 
-(defn gather-param [indicator mem v]
+(defn gather-param [indicator mem v ms]
   (case indicator
     \0 (mem v)
-    \1 v))
+    \1 v
+    \2 (mem (+ v (:rel ms)))))
 
-(defn decode-op [opcode mem ip]
+(defn gather-param-output [indicator mem v ms]
+  (case indicator
+    \0 v
+    \1 v
+    \2 (+ (:rel ms) v)))
+
+(defn decode-op [opcode mem ip machine-state]
   (let [fullop (str "00000000" opcode)
         op (apply str (take-last 2 fullop))
-        params (for [x (range 1 (inc (get op-len op)))]
-                 (gather-param (last (drop-last (inc x) fullop)) mem (mem (+ ip x))))]
+        params (concat (for [x (range 1 (inc (get op-len op)))]
+                         (gather-param (last (drop-last (inc x) fullop)) mem (mem (+ ip x)) machine-state))
+                       (for [x (range 1 (inc (get op-len op)))]
+                         (gather-param-output (last (drop-last (inc x) fullop)) mem (mem (+ ip x)) machine-state)))]
     [op params]))
 
 (def trace true)
 
 (defn run-one-step [machine-state]
   (let [{:keys [ip memory]} machine-state
-        [op params] (decode-op (memory ip) memory ip)]
-        ((op-lookup op) machine-state params)))
+        [op params] (decode-op (memory ip) memory ip machine-state)]
+    ((op-lookup op) machine-state params)))
 
 (defn create-state-from-mem [mem]
   {:ip 0
    :histmem []
-   :memory mem
+   :memory (vec (concat mem (take 1000 (repeat 0))))
    :halt false
+   :rel 0
    :inputstream []
    :outputstream []
    :inputwait false})
@@ -128,7 +143,6 @@
 
 (defn run-machine-with-input [memory input]
   (run-machine-base (assoc (create-state-from-mem memory) :inputstream input)))
-
 
 (defn create-machine-spec [s]
   (vec (map #(Integer/parseInt %) (vec (str/split (str/trim s) #",")))))
