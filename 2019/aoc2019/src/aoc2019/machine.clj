@@ -145,5 +145,5 @@
   (run-machine-base (assoc (create-state-from-mem memory) :inputstream input)))
 
 (defn create-machine-spec [s]
-  (vec (map #(Integer/parseInt %) (vec (str/split (str/trim s) #",")))))
+  (vec (map bigint (vec (str/split (str/trim s) #",")))))
 

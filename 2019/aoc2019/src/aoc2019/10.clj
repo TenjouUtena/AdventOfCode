@@ -13,19 +13,19 @@
              )))
 
 
-(defn sees? [p1 p2 galaxy]
-  (not (some identity (if (= 0 (- (first p2) (first p1)))
+(defn sees? [[x1 y1] [x2 y2] galaxy]
+  (not (some identity (if (= 0 (- x1 x2))
                         ;; Do something for infinite slope
-                        (for [y (if (< (nth p1 1) (nth p2 1))
-                                  (range (inc (nth p1 1)) (nth p2 1))
-                                  (range (dec (nth p1 1)) (nth p2 1) -1))]
-                          (some #(= [(first p1) y] %) (keys galaxy)))
-                        (let [slope (/ (- (nth p2 1) (nth p1 1))
-                                       (- (first p2) (first p1)))
-                              b (- (nth p1 1) (* slope (nth p1 0)))]
-                          (for [x (if (< (first p1) (first p2))
-                                     (range (inc (nth p1 0)) (nth p2 0))
-                                     (range (dec (nth p1 0)) (nth p2 0) -1))
+                        (for [y (if (< y1 y2)
+                                  (range (inc y1) y2)
+                                  (range (dec y1) y2 -1))]
+                          (some #(= [x1 y] %) (keys galaxy)))
+                        (let [slope (/ (- y2 y1)
+                                       (- x2 x1))
+                              b (- y1 (* slope x1))]
+                          (for [x (if (< x1 x2)
+                                     (range (inc x1) x2)
+                                     (range (dec x1) x2 -1))
                                 :let [y (+ (* slope x) b)]
                                 :when (integer? y)]
                             (some #(= [x y] %) (keys galaxy))))))))
