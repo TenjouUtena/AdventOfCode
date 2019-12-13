@@ -3,7 +3,7 @@
             [clojure.string :as s]))
 
 
-(def input (s/trim (slurp "resources/11.txt")))
+(def input (s/trim (slurp "resources/11-chewy2.txt")))
 
 (def machine (create-machine-spec input ))
 
@@ -23,8 +23,12 @@
          dir "U"
          loc [0 0]
          world {[0 0] def-node}]
-    (if (:halt state)
+    (cond
+      (and (not (:halt state)) (not (:inputwait state)))
+      [state world]
+      (:halt state)
       world
+      :else
       (let [curgrid (-> (get world loc def-node)
                         (assoc :painted true)
                         (assoc :color (first (:outputstream state))))

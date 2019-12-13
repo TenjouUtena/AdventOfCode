@@ -131,7 +131,7 @@
 
 (defn run-machine-base [state]
   (loop [ms state]
-    (if (or (:halt ms) (:inputwait ms))
+    (if (or (:halt ms) (:inputwait ms) (= (:ip ms) 99999 ))
       ms
       (recur (run-one-step ms)))))
 
