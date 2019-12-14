@@ -5,6 +5,7 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/math.combinatorics "0.1.6"]
-                 [org.clojure/core.async "0.6.532"]]
+                 [org.clojure/core.async "0.6.532"]
+                 [clojure-lanterna "0.9.7"]]
   :plugins [[lein-kibit "0.1.8"]]
   :repl-options {:init-ns aoc2019.core})
