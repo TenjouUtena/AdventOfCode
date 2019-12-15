@@ -1,5 +1,6 @@
 (ns aoc2019.14
-  (:require [clojure.string :as s]))
+  (:require [clojure.string :as s]
+            ))
 
 (def input (s/trim (slurp "resources/14.txt")))
 
@@ -15,8 +16,8 @@
 
 (def reactions (into {} (map extract-reaction (s/split-lines input))))
 
-(defn synth-material [qty fuel]
-  (loop [reagent fuel
+(defn synth-material [qty]
+  (loop [reagent "FUEL"
          reagent-qty qty
          backlog []
          leftover {}
@@ -29,7 +30,8 @@
       :else
       (let [r-needed (- reagent-qty (get leftover reagent 0))
             react-times (Math/ceil (/ r-needed (get-in reactions [reagent :num])))
-            add-to-backlog (map (fn [x] [(* react-times (first x)) (second x)]) (get-in reactions [reagent :ingredients]))
+            add-to-backlog (map (fn [x] [(* react-times (first x)) (second x)])
+                                (get-in reactions [reagent :ingredients]))
             new-backlog (concat backlog add-to-backlog)]
         (recur (second (first new-backlog)) (ffirst new-backlog) (rest new-backlog)
                (assoc leftover reagent
