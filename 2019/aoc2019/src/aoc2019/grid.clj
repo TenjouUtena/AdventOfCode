@@ -23,6 +23,9 @@
 (defn set-node [grid node loc]
   (assoc-in grid [:locations loc] node))
 
+(defn get-node [grid loc]
+  (get-in grid [:locations loc]))
+
 (defn distsqr [loc1 loc2]
   (let [[x1 y1] loc1
         [x2 y2] loc2]
