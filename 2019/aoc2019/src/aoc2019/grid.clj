@@ -1,8 +1,5 @@
 (ns aoc2019.grid)
 
-
-
-
 (defn default-passable? [_ _]
   true)
 
@@ -15,10 +12,8 @@
 (defn adjacent? [grid loc1 loc2]
   (some #(= loc1 %) (adjacent-locs grid loc2)))
 
-(def base-grid {
-                :locations {}
-                :passable? default-passable?
-                })
+(def base-grid {:locations {}
+                :passable? default-passable?})
 
 (defn set-node [grid node loc]
   (assoc-in grid [:locations loc] node))
@@ -41,7 +36,7 @@
       (let [curr (apply min-key #(get f %) open)
             nis (filter #(< (inc (get g curr)) (get g % 9999999)) (passable-adjacent-locs grid curr))]
         (if
-          (= curr destination)
+         (= curr destination)
           (reverse (take-while some? (iterate #(get from %) curr)))
           (recur
            (clojure.set/union (clojure.set/difference open (set [curr])) (set nis))
@@ -49,13 +44,21 @@
            (into g (map (fn [x] {x (inc (get g curr))}) nis))
            (into f (map (fn [x] {x (+ (inc (get g curr)) (distsqr x destination))}) nis))))))))
 
-
-(def dirs {
-           [0 -1] :n
+(def dirs {[0 -1] :n
            [0 1] :s
            [1 0] :e
-           [-1 0] :w
-           })
+           [-1 0] :w})
 
 (defn translate-path-to-dirs [path]
   (map (fn [x] (get dirs (mapv - (second x) (first x)))) (partition 2 1 path)))
+
+(defn printable-grid [grid]
+  (let [minx (first (apply min-key first (keys (:locations grid))))
+        maxx (first (apply max-key first (keys (:locations grid))))
+        miny (second (apply min-key second (keys (:locations grid))))
+        maxy (second (apply max-key second (keys (:locations grid))))]
+    (map #(apply str %)
+         (partition (- (inc maxx) minx)
+                    (for [y (range miny (inc maxy))
+                          x (range minx (inc maxx))]
+                      (:tile (get (:locations grid) [x y] {:tile \space})))))))
