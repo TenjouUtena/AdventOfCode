@@ -122,7 +122,7 @@
 (defn create-state-from-mem [mem]
   {:ip 0
    :histmem []
-   :memory (vec (concat mem (take 1000 (repeat 0))))
+   :memory (vec (concat mem (take 10000 (repeat 0))))
    :halt false
    :rel 0
    :inputstream []
