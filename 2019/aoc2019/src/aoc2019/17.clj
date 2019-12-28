@@ -18,3 +18,15 @@
              (s/split (apply str (map char (:outputstream (m/run-machine machine)))) #"\n")
     ))
 
+(defn scaffold? [tile]
+  (= (:tile tile) \#))
+
+(defn find-junctions [gr]
+  (filter (fn [tile]
+            (every? scaffold? (map #(g/get-node gr %)
+                                   (g/adjacent-locs gr (first tile)))))
+          (filter #(scaffold? (second %)) (:locations gr))))
+
+
+(defn align-parameters [locs]
+  (reduce + (map #(apply * %) (map first locs))))
